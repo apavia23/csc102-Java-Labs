@@ -1,7 +1,7 @@
 package lab6;
 
-public class SearhNSort {
-	public static void mergeSort(String[] names) {
+public class SearchNSort {
+	public static void mergeSort(String[] names) {    //MAKE THIS NOT TAKE NULL... take begin and end index as parameters
 		if (names.length >= 2) {
 			String[] left = new String[names.length / 2];
 			String[] right = new String[names.length - names.length / 2];
