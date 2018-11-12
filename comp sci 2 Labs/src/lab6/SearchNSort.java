@@ -34,28 +34,27 @@ public class SearchNSort {
 	}
 	
 	static void bubbleSort(String arr[], int lastIndex) {
-        int i, j;
-        String temp;
-        boolean swapped;
-        for (i = 0; i < lastIndex - 1; i++) {
-            swapped = false;
-            for (j = 0; j < lastIndex - i - 1; j++) {
-                if (arr[j].compareToIgnoreCase(arr[j + 1]) > 0){
-                    temp = arr[j];
-                    arr[j] = arr[j + 1];
-                    arr[j + 1] = temp;
-                    swapped = true;
-                }
-            }
-  
-            // IF no two elements were
-            // swapped by inner loop, then break
-            if (swapped == false) {
-                break;
-            }
-        }
+		int i, j;
+		String temp;
+		boolean swapped;
+		for(i = 0; i < lastIndex - 1; i++) {
+			swapped = false;
+			for(j = 0; j < lastIndex - i - 1; j++) {
+				if(arr[j].compareToIgnoreCase(arr[j + 1]) > 0){
+					temp = arr[j];
+					arr[j] = arr[j + 1];
+					arr[j + 1] = temp;
+					swapped = true;
+				}
+			}
+
+			// IF no two elements were
+			// swapped by inner loop, then break
+			if (swapped == false) {
+				break;
+			}
+		}
 	}
-    
 
 	public static boolean binSearch(String[] words, String x, int lastIndex) {
 		int left = 0;

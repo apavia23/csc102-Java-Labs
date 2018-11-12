@@ -7,6 +7,7 @@ import java.io.FileInputStream;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class arrNLists {
@@ -20,41 +21,42 @@ public class arrNLists {
 		}
 	}
 
-	public static void main(String[] args) throws IOException {
+	public static void main(String[] args) {
 		boolean running = true;
 		File file = new File("src\\lab6\\lab6words.txt");
 		String[] words = new String[30];
 		Scanner keyboard = new Scanner(System.in);
 
 		int currentIndex = 0;
-		try {
+		try(BufferedReader reader = new BufferedReader(new InputStreamReader(new FileInputStream(file)));) {
 			if(!file.exists()) {
 				file.createNewFile();
 			}
-			BufferedReader reader = new BufferedReader(new InputStreamReader(new FileInputStream(file)));
 			while(reader.ready() == true) {
 				words[currentIndex] = reader.readLine();
 				currentIndex++;
-			} reader.close();
+			}
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		
+
 		System.out.println("Word Sort Program\n1.Print word list\n2.Add word to list\n3.Search for a word in the list\n4.Exit");
 		while(running == true) {
 			System.out.print("Enter the number of the action you would like to preform: ");
 			int choice = keyboard.nextInt();
 			keyboard.nextLine();
 			if(choice == 4) {
-				BufferedWriter writer = new BufferedWriter(new FileWriter(file.getAbsoluteFile(), true));
-				for(String i : words) {
-					if(i != null) {
-						writer.write(i + "\n");
-					}else {
-						break;
+				try(BufferedWriter writer = new BufferedWriter(new FileWriter(file.getAbsoluteFile(), false));) {
+					for(String i : words) {
+						if(i != null) {
+							writer.write(i + "\n");
+						}else {
+							break;
+						}
 					}
+				} catch (IOException e) {
+					e.printStackTrace();
 				}
-				writer.close();
 				keyboard.close();
 				running = false;
 			}else if(choice == 1) {
