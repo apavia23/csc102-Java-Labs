@@ -4,17 +4,19 @@ public class LinkedyList {
  
 	public static void main(String args[])
 	{
-		LList lList = new LList();
-		lList.insertFirst(5);
-		lList.insertFirst(6);
-		lList.insertFirst(7);
-		lList.deleteFirst();
-
-		Node node=new Node();
-		node.data=1;
-		lList.deleteAfter(node);
-
-		lList.printLinkedList();
+		LinkedList lList = new LinkedList();
+		
+		lList.add(4);
+		lList.insertFirst(8);
+		lList.insertFirst(12);
+		lList.add(23);
+		lList.print();
+		System.out.println("");
+		lList.insert(17, 2);
+		
+		lList.print();
+		System.out.println("");
+		lList.print(3);
 	}
 }
 
