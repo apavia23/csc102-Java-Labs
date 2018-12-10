@@ -1,16 +1,19 @@
 package lab7;
 
-public class LinkedList {
+import java.util.Iterator;
+import java.util.NoSuchElementException;
+
+public class LinkedList<E> implements Iterable<E> {
 	private Node head;
 
-	public void insertFirst(int data) {
+	public void insertFirst(E data) {
 		Node newNode = new Node();
 		newNode.data = data;
 		newNode.next = head;
 		head = newNode;
 	}
 	
-	public void add(int data) {
+	public void add(E data) {
 		Node newNode = new Node();
 		newNode.data = data;
 		newNode.next = null;
@@ -26,7 +29,7 @@ public class LinkedList {
 		}
 	}
 	
-	public void insert(int data, int index) {
+	public void insert(E data, int index) {
 		Node newNode = new Node();
 		newNode.data = data;
 		if(head == null) {
@@ -41,13 +44,28 @@ public class LinkedList {
 		}
 	}
 	
-	public void print() {
-		Node n = head;
-		while(n.next != null) {
-			System.out.println(n.data);
-			n = n.next;
+	public void removeFirst() {
+		if(head == null) {
+			throw new NoSuchElementException();
+		}else {
+			Node n = head.next;
+			head.next = null;
+			head = n;
 		}
-		System.out.println(n.data);
+	}
+	
+	public void remove(int index) {
+		if(head == null) {
+			throw new NoSuchElementException();
+		}else {
+			Node n = head;
+			for(int i = 0; i < index - 1; i++) {
+				n = n.next;
+			}
+			Node n2 = n.next;
+			n.next = n2.next;
+			n2.next = null;
+		}
 	}
 	
 	public void print(int index) {
@@ -58,12 +76,32 @@ public class LinkedList {
 		System.out.println(n.data);
 	}
 	
+	public Iterator<E> iterator() {
+		return new IteratorHelper();
+	}
+	
 	class Node {
-		public int data;
+		public E data;
 		public Node next;
 	}
 
-	class Iterator{
-		
+	class IteratorHelper implements Iterator<E>{
+
+		Node current;
+		public IteratorHelper() {
+			current = head;
+		}
+		public boolean hasNext() {
+			return (current != null);
+		}
+
+		public E next() {
+			if(!hasNext()) {
+				throw new NoSuchElementException();
+			}
+			E val = current.data;
+			current = current.next;
+			return val;
+		}	
 	}
 }
